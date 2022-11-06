@@ -2,13 +2,14 @@ const express = require("express");
 const { connection } = require("./config/db");
 const bcrypt=require("bcrypt");
 require("dotenv").config();
+var cors = require('cors')
 const jwt = require("jsonwebtoken");
 const bookRouter = require("./routes/book.routes");
 const { validUser } = require("./middleware/validUser");
 const { UserModel } = require("./Model/User.model");
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 app.get("/", (req, res) => {
     res.send("welcome to homepage");
   })
