@@ -21,14 +21,14 @@ bookRouter.get("/", async (req, res) => {
   res.send(books)
 });
 
-bookRouter.post('/create',authentication,validBook, async (req, res) => {
+bookRouter.post('/create',validBook, async (req, res) => {
     const newBook= req.body;
     const books= new BookModel(newBook);
     await books.save();
     res.send("Book created successfully")
 });
 
-bookRouter.put('/:id',authentication,authorization, async (req, res) => {
+bookRouter.put('/:id',async (req, res) => {
     const id= req.params.id;
     const updateBook= req.body;
     await BookModel.replaceOne({id:id},updateBook);
@@ -37,7 +37,7 @@ bookRouter.put('/:id',authentication,authorization, async (req, res) => {
 
 });
 
-bookRouter.delete('/:id',authentication,authorization, async (req, res) => {
+bookRouter.delete('/:id', async (req, res) => {
     const id= req.params.id;
     await BookModel.deleteOne({id:id});
     res.send("Book Deleted successfully")
